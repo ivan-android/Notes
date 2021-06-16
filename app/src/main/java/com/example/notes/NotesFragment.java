@@ -38,7 +38,7 @@ public class NotesFragment extends Fragment {
 
     private void initList(View view) {
         LinearLayout layoutView = (LinearLayout)view;
-        Note[] notes = Datanotes.getNonesArray();
+        Note[] notes = Datanotes.getNotesArray();
 
         for(int i=0; i < notes.length; i++){
             Note note = notes[i];
@@ -75,7 +75,7 @@ public class NotesFragment extends Fragment {
             currentNote = savedInstanceState.getParcelable(CURRENT_NOTE);
         } else {
             // Если восстановить не удалось, то сделаем объект с первым индексом
-            currentNote = Datanotes.getNonesArray()[0];
+            currentNote = Datanotes.getNotesArray()[0];
         }
 
         // Если можно нарисовать рядом информацию о заметке, то сделаем это
