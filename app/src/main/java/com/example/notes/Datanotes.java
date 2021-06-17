@@ -2,7 +2,7 @@ package com.example.notes;
 
 public class Datanotes {
 
-    public static Note[] getNonesArray() {
+    public static Note[] getNotesArray() {
         Note[] notes = new Note[5];
         notes[0] = new Note("Заметка 1", "Описание заметки 1, ваавыфва жлыа ыва  ыв до ва");
         notes[1] = new Note("Заметка 2", "Описание заметки 2, кфываппыфва жлдо ввваа");
