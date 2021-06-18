@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- это макет для альбомной ориентации -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Фрагмент с выбором городов -->
-    <fragment android:name="com.example.notes.NotesFragment"
-        android:id="@+id/notes"
+    <Button
+        android:id="@+id/buttonBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_width="0px"
-        android:layout_height="match_parent" />
+        android:text="@string/back" />
 
-    <!-- Здесь будет герб выбранного города -->
     <FrameLayout
-        android:id="@+id/description_of_note"
-        android:layout_width="0px"
+        android:id="@+id/list_of_notes"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:background="?android:attr/detailsElementBackground"/>
