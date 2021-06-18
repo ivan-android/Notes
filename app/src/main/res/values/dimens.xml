@@ -2,4 +2,5 @@
 <resources>
     <dimen name="top_text_size_add">30sp</dimen>
     <dimen name="text_size_add">25sp</dimen>
+    <dimen name="button_save_size">20sp</dimen>
 </resources>

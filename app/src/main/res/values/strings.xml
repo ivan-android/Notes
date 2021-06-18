@@ -14,4 +14,5 @@
     <string name="version_text">version - 1.0</string>
     <string name="year_text">year - 2021</string>
     <string name="save">save</string>
+    <string name="search">search</string>
 </resources>

@@ -39,7 +39,7 @@
         android:id="@+id/buttonSaveNote"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_size_add"
+        android:textSize="@dimen/button_save_size"
         android:text="@string/save"/>
 
 </LinearLayout>
