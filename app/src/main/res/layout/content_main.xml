@@ -20,24 +20,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="@dimen/text_size_button"
+            android:theme="@style/MyButtonColorStyle"
             android:text="@string/back"/>
         <Button
             android:id="@+id/buttonAdd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="@dimen/text_size_button"
+            android:theme="@style/MyButtonColorStyle"
             android:text="@string/add" />
         <Button
             android:id="@+id/buttonOrder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="@dimen/text_size_button"
+            android:theme="@style/MyButtonColorStyle"
             android:text="@string/order_list" />
         <Button
             android:id="@+id/buttonAbout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="@dimen/text_size_button"
+            android:theme="@style/MyButtonColorStyle"
             android:text="@string/about" />
 
     </LinearLayout>
