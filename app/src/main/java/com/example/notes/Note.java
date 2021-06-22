@@ -3,13 +3,17 @@ package com.example.notes;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Date;
+
 public class Note implements Parcelable {
     private String nameNote;
     private String descriptionNote;
+    private Date creationDateNote;
 
-    public Note(String nameNote, String descriptionNote) {
+    public Note(String nameNote, String descriptionNote, Date creationDateNote) {
         this.nameNote = nameNote;
         this.descriptionNote = descriptionNote;
+        this.creationDateNote = creationDateNote;
     }
 
     protected Note(Parcel in) {
@@ -36,6 +40,8 @@ public class Note implements Parcelable {
     public String getDescriptionNote() {
         return descriptionNote;
     }
+
+    public Date getCreationDateNote() {return creationDateNote;}
 
 
     @Override

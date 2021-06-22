@@ -9,12 +9,16 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class NotesFragment extends Fragment {
@@ -32,26 +36,41 @@ public class NotesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initList(view);
+
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_lines);
+        // Получим источник данных для списка
+        NoteSource data = new NoteSourceImpl().init();
+        initRecyclerView(recyclerView, data);
     }
 
-    private void initList(View view) {
-        LinearLayout layoutView = (LinearLayout)view;
-        Note[] notes = Datanotes.getNotesArray();
+    private void initRecyclerView(RecyclerView recyclerView, NoteSource data){
 
-        for(int i=0; i < notes.length; i++){
-            Note note = notes[i];
-            TextView tv = new TextView(getContext());
-            tv.setText(note.getNameNote());
-            tv.setTextSize(30);
-            layoutView.addView(tv);
-            tv.setOnClickListener(v -> {
-                currentNote = note;
+        // Эта установка служит для повышения производительности системы
+        recyclerView.setHasFixedSize(true);
+
+        // Будем работать со встроенным менеджером
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+
+        // Установим адаптер
+        NoteAdapter adapter = new NoteAdapter(data);
+        recyclerView.setAdapter(adapter);
+
+        // Добавим разделитель карточек
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(getContext(),  LinearLayoutManager.VERTICAL);
+        itemDecoration.setDrawable(getResources().getDrawable(R.drawable.separator, null));
+        recyclerView.addItemDecoration(itemDecoration);
+
+        // Установим слушателя
+        adapter.SetOnItemClickListener(new NoteAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                currentNote = data.getNoteData(position);
                 showDescriptionNote(currentNote);
-            });
-
-        }
+            }
+        });
     }
+
 
     private void showDescriptionNote(Note currentNote) {
 

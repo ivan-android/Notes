@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+
 
 public class DescriptionNoteFragment extends Fragment {
 
@@ -41,11 +43,15 @@ public class DescriptionNoteFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Таким способом можно получить головной элемент из макета
         View view = inflater.inflate(R.layout.fragment_description_note, container, false);
-
         TextView textViewNameNote = view.findViewById(R.id.textViewNameNote);
-        textViewNameNote.setText(note.getNameNote());
         TextView textViewDescriptionNote = view.findViewById(R.id.textViewDescriptionNote);
+        TextView textViewDateNote = view.findViewById(R.id.textViewDateNote);
+
+        textViewNameNote.setText(note.getNameNote());
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        textViewDateNote.setText(format.format(note.getCreationDateNote()));
         textViewDescriptionNote.setText(note.getDescriptionNote());
+
         return view;
     }
 }
