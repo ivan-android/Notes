@@ -15,4 +15,6 @@
     <string name="year_text">year - 2021</string>
     <string name="save">save</string>
     <string name="search">search</string>
+    <string name="update">update</string>
+    <string name="delete">delete</string>
 </resources>
