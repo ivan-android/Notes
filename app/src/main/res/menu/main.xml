@@ -12,12 +12,7 @@
         android:orderInCategory="10"
         android:title="@string/back"
         app:showAsAction="always" />
-    <item
-        android:id="@+id/action_add"
-        android:icon="@android:drawable/ic_menu_add"
-        android:orderInCategory="20"
-        android:title="@string/add"
-        app:showAsAction="ifRoom" />
+
     <item
         android:id="@+id/action_search"
         android:icon="@android:drawable/ic_menu_search"

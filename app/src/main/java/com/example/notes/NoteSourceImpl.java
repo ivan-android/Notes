@@ -14,7 +14,7 @@ public class NoteSourceImpl implements NoteSource {
         dataSource = new ArrayList<>(15);
     }
 
-    public NoteSourceImpl init(){
+    public NoteSource init(NoteSourceResponse noteSourceResponse){
         // заполнение источника данных
         dataSource.add(new Note("Купить продукты", "Описание заметки 1, ваавыфва жлыа ыва  ыв до ва", new Date()));
         dataSource.add(new Note("Отвезти кота к врачу", "Описание заметки 2, кфываппыфва жлдо ввваа", new Date()));
@@ -28,6 +28,9 @@ public class NoteSourceImpl implements NoteSource {
         dataSource.add(new Note("Съездить в отпуск", "Описание заметки 10, афыыфва ываважлдо ывававава", new Date()));
         dataSource.add(new Note("Помыть машину", "Описание заметки 11, афыыфва ываважлдо ывававава", new Date()));
 
+        if (noteSourceResponse != null){
+            noteSourceResponse.initialized(this);
+        }
         return this;
     }
 
@@ -39,6 +42,23 @@ public class NoteSourceImpl implements NoteSource {
     public int size(){
         return dataSource.size();
     }
+
+    @Override
+    public void deleteNoteData(int position) {
+        dataSource.remove(position);
+    }
+
+    @Override
+    public void updateNoteData(int position, Note note) {
+        dataSource.set(position, note);
+    }
+
+    @Override
+    public void addNoteData(Note note) {
+        dataSource.add(note);
+    }
+
+
 }
 
 

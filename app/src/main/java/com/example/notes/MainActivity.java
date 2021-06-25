@@ -14,12 +14,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.notes.observe.Observer;
+import com.example.notes.observe.Publisher;
+
 public class MainActivity extends AppCompatActivity {
+
+    private Navigation navigation;
+    private Publisher publisher = new Publisher();
+    public NoteSource data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        navigation = new Navigation(getSupportFragmentManager());
+        //data = new NoteSourceImpl().init();
 
         initView();
 
@@ -29,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         initToolbar();
         firstInitNotes();
         initButtonBack();
-        initButtonAdd();
+
         initButtonAbout();
     }
 
@@ -50,9 +59,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_back:
                 addFragment(new NotesFragment());
                 return true;
-            case R.id.action_add:
-                addFragment(new AddFragment());
-                return true;
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -95,15 +102,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void initButtonAdd() {
-        Button buttonAdd = findViewById(R.id.buttonAdd);
-        buttonAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addFragment(new AddFragment());
-            }
-        });
-    }
+
 
     private void initButtonAbout() {
         Button buttonAbout = findViewById(R.id.buttonAbout);
@@ -120,5 +119,19 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.list_of_notes, fragment);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    public Navigation getNavigation() {
+        return navigation;
+    }
+
+    public Publisher getPublisher() {
+        return publisher;
     }
 }

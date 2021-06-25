@@ -1,5 +1,6 @@
 package com.example.notes;
 
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,7 +8,9 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
@@ -16,13 +19,21 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
 
 
     private NoteSource dataSource;
+    private Fragment fragment;
     private OnItemClickListener itemClickListener;  // Слушатель будет устанавливаться извне
+    private int menuPosition;
 
     // Передаём в конструктор источник данных
     // В нашем случае это массив, но может быть и запрос к БД
 
-    public NoteAdapter(NoteSource dataSource) {
+    public NoteAdapter(Fragment fragment) {
+
+        this.fragment = fragment;
+    }
+
+    public void setDataSource(NoteSource dataSource){
         this.dataSource = dataSource;
+        notifyDataSetChanged();
     }
 
     // Создать новый элемент пользовательского интерфейса
@@ -58,6 +69,10 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
         this.itemClickListener = itemClickListener;
     }
 
+    public int getMenuPosition() {
+        return menuPosition;
+    }
+
     // Интерфейс для обработки нажатий, как в ListView
     public interface OnItemClickListener {
         void onItemClick(View view , int position);
@@ -70,12 +85,12 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
         private TextView nameNoteList;
         private TextView creationDateNoteList;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull final View itemView) {
             super(itemView);
             nameNoteList = itemView.findViewById(R.id.nameNoteList);
             creationDateNoteList = itemView.findViewById(R.id.creationDateNoteList);
 
-
+            registerContextMenu(itemView);
             // Обработчик нажатий на этом ViewHolder
             nameNoteList.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -85,6 +100,29 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
                     }
                 }
             });
+
+            // Обработчик нажатий на картинке
+            nameNoteList.setOnLongClickListener(new View.OnLongClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.N)
+                @Override
+                public boolean onLongClick(View v) {
+                    menuPosition = getLayoutPosition();
+                    itemView.showContextMenu(10, 10);
+                    return true;
+                }
+            });
+        }
+        private void registerContextMenu(@NonNull View itemView) {
+            if (fragment != null){
+                itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        menuPosition = getLayoutPosition();
+                        return false;
+                    }
+                });
+                fragment.registerForContextMenu(itemView);
+            }
         }
 
         public void setData(Note note){
