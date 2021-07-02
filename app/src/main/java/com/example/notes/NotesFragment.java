@@ -1,6 +1,8 @@
 package com.example.notes;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -197,9 +199,38 @@ public class NotesFragment extends Fragment {
                 });
                 return true;
             case R.id.action_delete:
-                int deletePosition = adapter.getMenuPosition();
-                data.deleteNoteData(deletePosition);
-                adapter.notifyItemRemoved(deletePosition);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                // В билдере указываем заголовок окна. Можно указывать как ресурс, так
+                // и строку
+                builder.setTitle(R.string.exclamation)
+                        // Указываем сообщение в окне. Также есть вариант со строковым
+                        // параметром
+                        // Из этого окна нельзя выйти кнопкой Back
+                        .setCancelable(false)
+                        // Устанавливаем отрицательную кнопку
+                        .setNegativeButton(R.string.no,
+                                // Ставим слушатель, будем обрабатывать нажатие
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+
+                                    }
+                                })
+
+                        // Устанавливаем кнопку. Название кнопки также можно задавать
+                        // строкой
+                        .setPositiveButton(R.string.yes,
+                                // Ставим слушатель, будем обрабатывать нажатие
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        int deletePosition = adapter.getMenuPosition();
+                                        data.deleteNoteData(deletePosition);
+                                        adapter.notifyItemRemoved(deletePosition);
+                                    }
+                                });
+                AlertDialog alert = builder.create();
+                alert.show();
+
                 return true;
         }
         return false;

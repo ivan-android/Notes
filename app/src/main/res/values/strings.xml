@@ -17,4 +17,7 @@
     <string name="search">search</string>
     <string name="update">update</string>
     <string name="delete">delete</string>
+    <string name="exclamation">Delete a note?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>
